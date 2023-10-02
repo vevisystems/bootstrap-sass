@@ -59,7 +59,7 @@
         $parent.toggleClass('open')
       }
 
-      $this.focus()
+      $this.trigger('focus')
 
       return false
     }
@@ -86,8 +86,8 @@
       isActive = $parent.hasClass('open')
 
       if (!isActive || (isActive && e.keyCode == 27)) {
-        if (e.which == 27) $parent.find(toggle).focus()
-        return $this.click()
+        if (e.which == 27) $parent.find(toggle).trigger('focus')
+        return $this.trigger('click')
       }
 
       $items = $('[role=menu] li:not(.divider):visible a', $parent)
@@ -102,7 +102,7 @@
 
       $items
         .eq(index)
-        .focus()
+        .trigger('focus')
     }
 
   }
@@ -120,7 +120,7 @@
 
     if (!selector) {
       selector = $this.attr('href')
-      selector = selector && /#/.test(selector) && selector.replace(/.*(?=#[^\s]*$)/, '') //strip for ie7
+      selector = selector && /#/.test(selector) && selector.length > 1 && selector.replace(/.*(?=#[^\s]*$)/, '') //strip for ie7
     }
 
     $parent = selector && $(selector)

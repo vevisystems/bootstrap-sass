@@ -47,7 +47,7 @@
       var val = this.$menu.find('.active').attr('data-value')
       this.$element
         .val(this.updater(val))
-        .change()
+        .trigger('change')
       return this.hide()
     }
 
@@ -87,7 +87,7 @@
         return this.shown ? this.hide() : this
       }
 
-      items = $.isFunction(this.source) ? this.source(this.query, $.proxy(this.process, this)) : this.source
+      items = typeof this.source === 'function' ? this.source(this.query, $.proxy(this.process, this)) : this.source
 
       return items ? this.process(items) : this
     }
@@ -271,7 +271,7 @@
       e.stopPropagation()
       e.preventDefault()
       this.select()
-      this.$element.focus()
+      this.$element.trigger('focus')
     }
 
   , mouseenter: function (e) {
